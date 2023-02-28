@@ -1,0 +1,64 @@
+{
+    "lang": "en-us",
+    "name": "Simple GeoData Reader",
+    "short_name": "Simple GeoData Reader",
+    "description": "Simple GeoData Reader is a free, web-based GeoData Reader, Use this web-based Simple GeoData Reader to quickly and easily reader GeoData.",
+    "scope": "./",
+    "start_url": "./",
+    "background_color": "#2f3d58",
+    "theme_color": "#2f3d58",
+    "orientation": "portrait",
+    "display": "standalone",
+    "prompt_message": "新增到主畫面",
+    "icons": [
+        {
+            "src": "image/appicon512.png",
+            "sizes": "512x512"
+        },
+        {
+            "src": "image/appicon192.png",
+            "sizes": "192x192"
+        }
+    ],
+    "file_handlers": [
+        {
+            "action": "./?datatype=geojson",
+            "accept": {
+                "application/json": [
+                    ".geojson"
+                ]
+            }
+        },
+        {
+            "action": "./?datatype=topojson",
+
+            "accept": {
+                "application/json": [
+                    ".topojson"
+                ]
+            }
+        },
+        {
+            "action": "./?datatype=kml",
+            "accept": {
+                "text/xml": [
+                    ".kml"
+                ]
+            }
+        },
+        {
+            "action": "./?datatype=gpx",
+            "accept": {
+                "text/xml": [
+                    ".gpx"
+                ]
+            }
+        }
+    ],
+    "protocol_handlers": [
+        {
+            "protocol": "geo",
+            "url": "./?show_place=%s"
+        }
+    ]
+}
