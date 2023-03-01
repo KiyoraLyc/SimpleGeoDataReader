@@ -79,7 +79,6 @@
                             <div class="layer-list">
                                 <ul id="layerlist">
                                     <li :data-layerName="layer.name" v-for="(layer, index) in dataLayers">
-
                                         <span>
                                             <label class="form-check-label" style="margin: 0 1rem 0 0;">
                                                 <input class="form-check-input" type="checkbox"
@@ -87,7 +86,7 @@
                                                     @change="(e)=>{changLayerVisible(e,layer)}">
                                             </label>
                                             <i class="fg-layer-stack-o"></i>
-                                            <span class="text-wrap">{{layer.name}}</span>
+                                            {{layer.name}}
                                         </span>
                                         <div class="layer-list-item-r">
                                             <div class="dropdown">
@@ -103,12 +102,9 @@
                                                     </li>
                                                     <!--<li class="p-0"><button class="dropdown-item" type="button">Delete</button></li>-->
                                                 </ul>
-                                                <i type="button" class="btn bi btn-close btn-lg"
-                                                    @click="deleteLayer(index,layer)"></i>
-                                            </div>
-                                            <!--<i class="bi bi-x-lg cursor-pointer" data-bs-toggle="modal" data-bs-target="#Modal-Del"></i>-->
-                                            <div></div>
 
+                                            </div>
+                                            <i class="bi bi-x-lg cursor-pointer" @click="deleteLayer(index,layer)"></i>
                                         </div>
                                     </li>
 

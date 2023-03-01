@@ -1,20 +1,22 @@
 layerGenerator =
 {
+    colorer: d3.scaleSequential(d3.interpolateRainbow).domain([1, 1000000]),
+    randomer: d3.randomUniform(1, 1000000),
     creatGeoJsonLayerFromText: async function (name, textContent) {
         let features = new ol.format.GeoJSON().readFeatures(textContent, {
             dataProjection: 'EPSG:4326',
             featureProjection: 'EPSG:3857'
         });
+        features.map(feature => {
+            let randomColor = d3.rgb(layerGenerator.colorer(layerGenerator.randomer())).formatRgb();;
+            const featurstyle = styleFunction(feature, randomColor);
+            feature.setStyle(featurstyle);
+        });
         let source = new ol.source.Vector({
             features: features
         });
-        const clusterSource = new ol.source.Cluster({
-            distance: parseInt(40, 10),
-            minDistance: parseInt(20, 10),
-            source: source,
-        });
-        let layer = new ol.layer.VectorImage({ source: source, style: styleFunction });
-        //let layer = new ol.layer.Vector({ source: clusterSource });
+        //let layer = new ol.layer.Vector({ source: source});
+        let layer = new ol.layer.VectorImage({ source: source });
         //var vectorImageLayer = new ol.layer.VectorImage({ source: vectorSource });
         layer.name = name;
         return layer;
@@ -23,10 +25,15 @@ layerGenerator =
         let features = new ol.format.TopoJSON().readFeatures(textContent, {
             featureProjection: 'EPSG:3857'
         });
+        features.map(feature => {
+            let randomColor = d3.rgb(layerGenerator.colorer(layerGenerator.randomer())).formatRgb();;
+            const featurstyle = styleFunction(feature, randomColor);
+            feature.setStyle(featurstyle);
+        });
         let source = new ol.source.Vector({
             features: features
         });
-        let layer = new ol.layer.VectorImage({ source: source, style: styleFunction });
+        let layer = new ol.layer.VectorImage({ source: source });
         layer.name = name;
         return layer;
     },
@@ -34,10 +41,15 @@ layerGenerator =
         let features = new ol.format.KML().readFeatures(textContent, {
             featureProjection: 'EPSG:3857'
         });
+        /*features.map(feature=>{
+            let randomColor= d3.rgb(layerGenerator.colorer(layerGenerator.randomer())).formatRgb();;
+            const featurstyle=styleFunction(feature,randomColor);
+            feature.setStyle(featurstyle);
+        });*/
         let source = new ol.source.Vector({
             features: features
         });
-        let layer = new ol.layer.VectorImage({ source: source, style: styleFunction });
+        let layer = new ol.layer.VectorImage({ source: source });
         layer.name = name;
         return layer;
     },
@@ -50,7 +62,7 @@ layerGenerator =
         let source = new ol.source.Vector({
             features: features
         });
-        let layer = new ol.layer.VectorImage({ source: source, style: GpxstyleFunction });
+        let layer = new ol.layer.VectorImage({ source: source });
         layer.name = name;
         return layer;
     },
@@ -67,13 +79,18 @@ layerGenerator =
         return layer;
     },
     creatGmlLayerFromText: async function (name, textContent) {
-        let features = new ol.format.GML3().readFeatures(textContent, {
+        let features = new ol.format.GML().readFeatures(textContent, {
             featureProjection: 'EPSG:3857'
+        });
+        features.map(feature => {
+            let randomColor = d3.rgb(layerGenerator.colorer(layerGenerator.randomer())).formatRgb();;
+            const featurstyle = styleFunction(feature, randomColor);
+            feature.setStyle(featurstyle);
         });
         let source = new ol.source.Vector({
             features: features
         });
-        let layer = new ol.layer.VectorImage({ source: source, style: styleFunction });
+        let layer = new ol.layer.VectorImage({ source: source });
         layer.name = name;
         return layer;
     },
@@ -83,10 +100,15 @@ layerGenerator =
             dataProjection: 'EPSG:4326',
             featureProjection: 'EPSG:3857'
         });
+        features.map(feature => {
+            let randomColor = d3.rgb(layerGenerator.colorer(layerGenerator.randomer())).formatRgb();;
+            const featurstyle = styleFunction(feature, randomColor);
+            feature.setStyle(featurstyle);
+        });
         var source = new ol.source.Vector({
             features: features
         });
-        let layer = new ol.layer.VectorImage({ source: source, style: styleFunction });
+        let layer = new ol.layer.VectorImage({ source: source });
         layer.name = name;
         return layer;
     },
@@ -114,7 +136,6 @@ layerGenerator =
         let source = new ol.source.XYZ({
             url: url
         });
-        //let layer = new ol.layer.Tile({ source: source, style: styleFunction });
         let layer = new ol.layer.WebGLTile({ source: source });
         layer.name = name;
         return layer;

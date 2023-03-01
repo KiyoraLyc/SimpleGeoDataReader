@@ -208,7 +208,7 @@ const app = Vue.createApp(
                 maparea.addEventListener("dragleave", self.FileDragHover, false);
                 maparea.addEventListener("drop", self.FileSelectHandler, false);
 
-                $(document).on('click','.popover-close',function(){
+                $(document).on('click', '.popover-close', function () {
                     self.disposePopover();
                 });
 

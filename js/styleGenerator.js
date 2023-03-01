@@ -1,86 +1,107 @@
 const styles = {
-    'Point': new ol.style.Style({
-        image: new ol.style.Circle({
-            radius: 8,
-            fill: new ol.style.Fill({
-                color: 'rgb(51,153,204,0.3)',
+    'Point': function () {
+        return new ol.style.Style({
+            image: new ol.style.Circle({
+                radius: 8,
+                fill: new ol.style.Fill({
+                    color: 'rgb(51,153,204,0.3)',
+                }),
+                stroke: new ol.style.Stroke({ color: 'rgb(51,153,204)', width: 1 }),
             }),
-            stroke: new ol.style.Stroke({ color: 'rgb(51,153,204)', width: 1 }),
-        }),
-    }),
-    'LineString': new ol.style.Style({
-        stroke: new ol.style.Stroke({
-            color: '#3399CC',
-            width: 2,
-        }),
-    }),
-    'MultiLineString': new ol.style.Style({
-        stroke: new ol.style.Stroke({
-            color: '#3399CC',
-            width: 2,
-        }),
-    }),
-    'MultiPoint': new ol.style.Style({
-        image: new ol.style.Circle({
-            radius: 5,
-            fill: new ol.style.Fill({
-                color: 'rgba(255,255,255,0.5)',
-            }),
-            stroke: new ol.style.Stroke({ color: '#3399CC', width: 1 }),
-        }),
-    }),
-    'MultiPolygon': new ol.style.Style({
-        stroke: new ol.style.Stroke({
-            color: '#3399CC',
-            width: 2,
-        }),
-        fill: new ol.style.Fill({
-            color: 'rgba(255,255,255,0.5)',
-        }),
-    }),
-    'Polygon': new ol.style.Style({
-        stroke: new ol.style.Stroke({
-            color: '#3399CC',
-            width: 2,
-        }),
-        fill: new ol.style.Fill({
-            color: 'rgba(255,255,255,0.5)',
-        }),
-    }),
-    'GeometryCollection': new ol.style.Style({
-        stroke: new ol.style.Stroke({
-            color: '#3399CC',
-            width: 2,
-        }),
-        fill: new ol.style.Fill({
-            color: 'rgba(255,255,255,0.5)',
-        }),
-        image: new ol.style.Circle({
-            radius: 10,
-            fill: null,
+        });
+    },
+    'LineString': function () {
+        return new ol.style.Style({
             stroke: new ol.style.Stroke({
+                color: '#3399CC',
+                width: 2,
+            }),
+        });
+    },
+    'MultiLineString': function () {
+        return new ol.style.Style({
+            stroke: new ol.style.Stroke({
+                color: '#3399CC',
+                width: 2,
+            }),
+        });
+    },
+    'MultiPoint': function () {
+        return new ol.style.Style({
+            image: new ol.style.Circle({
+                radius: 5,
+                fill: new ol.style.Fill({
+                    color: 'rgba(255,255,255,0.5)',
+                }),
+                stroke: new ol.style.Stroke({ color: '#3399CC', width: 1 }),
+            }),
+        });
+    },
+    'MultiPolygon': function () {
+        return new ol.style.Style({
+            stroke: new ol.style.Stroke({
+                color: '#3399CC',
+                width: 2,
+            }),
+            fill: new ol.style.Fill({
                 color: 'rgba(255,255,255,0.5)',
             }),
-        }),
-    }),
-    'Circle': new ol.style.Style({
-        stroke: new ol.style.Stroke({
-            color: '#3399CC',
-            width: 2,
-        }),
-        fill: new ol.style.Fill({
-            color: 'rgba(255,255,255,0.5)',
-        }),
-    }),
+        });
+    },
+    'Polygon': function () {
+        return new ol.style.Style({
+            stroke: new ol.style.Stroke({
+                color: '#3399CC',
+                width: 2,
+            }),
+            fill: new ol.style.Fill({
+                color: 'rgba(255,255,255,0.5)',
+            }),
+        });
+    },
+    'GeometryCollection': function () {
+        return new ol.style.Style({
+            stroke: new ol.style.Stroke({
+                color: '#3399CC',
+                width: 2,
+            }),
+            fill: new ol.style.Fill({
+                color: 'rgba(255,255,255,0.5)',
+            }),
+            image: new ol.style.Circle({
+                radius: 10,
+                fill: null,
+                stroke: new ol.style.Stroke({
+                    color: 'rgba(255,255,255,0.5)',
+                }),
+            }),
+        });
+    },
+    'Circle': function () {
+        return new ol.style.Style({
+            stroke: new ol.style.Stroke({
+                color: '#3399CC',
+                width: 2,
+            }),
+            fill: new ol.style.Fill({
+                color: 'rgba(255,255,255,0.5)',
+            }),
+        });
+    },
 };
 
-const styleFunction = function (feature) {
+const styleFunction = function (feature, colorstr) {
     const geometryType = feature.getGeometry().getType();
-    let color = d3.rgb(d3.scaleSequential(d3.interpolateRainbow).domain([1, 1000000])(d3.randomUniform(1, 1000000)()));
+    let color = null;
+    if (!colorstr) {
+        color = d3.rgb(d3.scaleSequential(d3.interpolateRainbow).domain([1, 1000000])(d3.randomUniform(1, 1000000)()));
+    } else {
+        color = d3.rgb(colorstr);
+    }
     const strokeColor = color.formatRgb();
     color.opacity = 0.3;
     const fillColor = color.formatRgb();
-    const style = styles[geometryType];
+    const style = styles[geometryType]();
 
     const stroke = new ol.style.Stroke({
         color: strokeColor,
@@ -113,8 +134,6 @@ const GpxstyleFunction = function (feature) {
     const gpxStyles = [
         style
     ];
-
-
     geometry.getLineStrings().forEach((lineString) => {
 
         lineString.forEachSegment(function (start, end) {
