@@ -2,27 +2,31 @@
 <html lang="en">
 
 <head>
-    <meta name="viewport" content="width = device-width，initial-scale = 1.0，maximum-scale = 1.0，user-scalable = no">
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;" name="viewport" />
     <title>Simple GeoData Reader</title>
+    <meta name="description" content="Simple GeoData Reader is a free webbased front end client side GeoData Reader, Use this to quickly and easily reader GeoData.">
     <meta name="google-site-verification" content="Z3Hk-7Xk8oO0I_pdWg2sD8AS-d5zA96csDYB9U7bz8s" />
-    <meta name="description"
-        content="Simple GeoData Reader is a free, web-based GeoData Reader, Use this web-based Simple GeoData Reader to quickly and easily reader GeoData. Supported file formats: .kml, .geojson, .gpx, shapefile, .topojson">
+    <meta property="og:url" content="https://kiyoralyc.github.io/SimpleGeoDataReader/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Simple GeoData Reader" />
+    <meta property="og:description" content="Simple GeoData Reader is a free webbased front end client side GeoData Reader, Use this to quickly and easily reader GeoData." />
+    <meta property="og:image" content="image/appicon.png" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;"  />
     <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "SoftwareApplication",
-      "name": "SimpleGeoDataReader",
-      "operatingSystem": "Windows,Mac OS,Linux,Android,IOS,Ipad OS",
-      "applicationCategory": "DeveloperApplication,EducationalApplication,BrowserApplication,DesktopEnhancementApplication,UtilitiesApplication",
-      "offers": {
-        "@type": "Offer",
-        "price": "Free"
-      }
-    }
+        {
+          "@context": "https://schema.org",
+          "@type": "SoftwareApplication",
+          "name": "SimpleGeoDataReader",
+          "operatingSystem": "Windows,Mac OS,Linux,Android,IOS,Ipad OS",
+          "applicationCategory": "DeveloperApplication,EducationalApplication,BrowserApplication,DesktopEnhancementApplication,UtilitiesApplication",
+          "offers": {
+            "@type": "Offer",
+            "price": "Free"
+          }
+        }
     </script>
+    <link rel="icon" type="image/png" href="image/appicon192.png">
     <link rel="manifest" href="manifest.json">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
@@ -31,7 +35,6 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ol@v7.2.2/ol.css">
     <link rel="stylesheet" href="css/css.css">
 </head>
-
 <body>
     <div id="app">
         <!--Loading-->
@@ -42,7 +45,6 @@
             </div>
         </div>
         <!--//Loading-->
-
         <div class="page">
             <div class="container-gis">
 
@@ -55,7 +57,6 @@
                     <div class="bottom-item" data-bs-toggle="modal" data-bs-target="#Modal-About"><i
                             class="bi bi-info-circle-fill fs20 mb3"></i>About</div>
                 </div>
-
                 <div class="offcanvas offcanvas-start layer-menu-area" data-bs-scroll="true" tabindex="-2"
                     id="offcanvasWithBothOptions" data-bs-backdrop="false">
                     <div class="offcanvas-header bg-dark color-white">
@@ -79,37 +80,27 @@
                             <div class="layer-list">
                                 <ul id="layerlist">
                                     <li :data-layerName="layer.name" v-for="(layer, index) in dataLayers">
-                                        <span>
-                                            <label class="form-check-label" style="margin: 0 1rem 0 0;">
-                                                <input class="form-check-input" type="checkbox"
-                                                    :checked="layer.getVisible()"
-                                                    @change="(e)=>{changLayerVisible(e,layer)}">
-                                            </label>
-                                            <i class="fg-layer-stack-o"></i>
-                                            {{layer.name}}
+                                        <label class="pr5"><input type="checkbox" :checked="layer.getVisible()"
+                                                @change="(e)=>{changLayerVisible(e,layer)}"></label>
+                                        <span class="layer-list-item-l">
+                                            <i class="fg-layer-stack-o mtn3"></i>
+                                            <span class="layer-item-name"> {{layer.name}}</span>
                                         </span>
                                         <div class="layer-list-item-r">
                                             <div class="dropdown">
-                                                <button class="btn btn-lg" data-bs-toggle="dropdown">
-                                                    <i class="bi bi-three-dots-vertical cursor-pointer pr20"
-                                                        aria-expanded="false"></i>
+                                                <button class="btn list-item-btn" data-bs-toggle="dropdown">
+                                                    <i class="bi bi-three-dots-vertical" aria-expanded="false"></i>
                                                 </button>
-
                                                 <ul class="dropdown-menu">
-                                                    <li class="p-0">
-                                                        <button class="dropdown-item" type="button"
-                                                            @click="zoomToLayer(layer)">ZoomTo Data</button>
-                                                    </li>
-                                                    <!--<li class="p-0"><button class="dropdown-item" type="button">Delete</button></li>-->
+                                                    <li class="p-0"><button class="dropdown-item" type="button"
+                                                            @click="zoomToLayer(layer)">ZoomTo
+                                                            Data</button></li>
                                                 </ul>
-
                                             </div>
-                                            <i class="bi bi-x-lg cursor-pointer" @click="deleteLayer(index,layer)"></i>
+                                            <i class="bi bi-x-lg list-item-close" @click="deleteLayer(index,layer)"></i>
                                         </div>
                                     </li>
-
                                 </ul>
-
                             </div>
                         </div>
                     </div>
@@ -159,8 +150,7 @@
                             aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        Simple GeoData Reader is a free, web-based GeoData Reader, Use this web-based Simple GeoData
-                        Reader to quickly and easily reader GeoData.
+                        Simple GeoData Reader is a free webbased front end client side GeoData Reader, Use this to quickly and easily reader GeoData.
                         Supported file formats: .kml, .geojson, .gpx, shapefile, .topojson
                     </div>
                     <div class="modal-footer">
@@ -199,9 +189,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://unpkg.com/bootstrap-table@1.20.2/dist/bootstrap-table.min.js"></script>
-    <script
-        src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.16.0/locale/bootstrap-table-zh-TW.min.js"></script>
-    <script src="lib/jquery-resizable.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.16.0/locale/bootstrap-table-zh-TW.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/ol@v7.2.2/dist/ol.js"></script>
     <script src="https://unpkg.com/shpjs@latest/dist/shp.js"></script>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
@@ -213,6 +201,7 @@
     <script src="https://cdn.jsdelivr.net/npm/d3-interpolate@3"></script>
     <script src="https://cdn.jsdelivr.net/npm/d3-scale-chromatic@3"></script>
     <script src="https://unpkg.com/@tmcw/togeojson@5.6.0/dist/togeojson.umd.js"></script>
+    <script src="lib/jquery-resizable.js"></script>
     <script src="js/fileReaderHelper.js"></script>
     <script src="js/styleGenerator.js"></script>
     <script src="js/layerGenerator.js"></script>
@@ -224,7 +213,6 @@
         gtag('js', new Date());
         gtag('config', 'G-FKQCKZHTTC');
     </script>
-
 </body>
 
 </html>

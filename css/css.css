@@ -758,7 +758,7 @@ a:focus {
 }
 
 .layer-list li {
-  padding: 0 10px;
+  padding:5px 10px;
   min-height: 45px;
   font-size: 15px;
   color: #000;
@@ -786,6 +786,7 @@ a:focus {
 .layer-list-item-r {
   display: flex;
   flex-direction: row;
+  align-items: center;
 }
 
 
@@ -890,6 +891,33 @@ a:focus {
   z-index: 10000;
 }
 
+.layer-list-item-l {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  padding-left: 5px;
+}
+
+.layer-item-name {
+  word-break: break-all;
+  padding-left: 7px;
+  line-height: 18px;
+}
+
+.mtn3 {
+  margin-top: -3px;
+}
+
+.list-item-btn {
+  padding: 8px 10px;
+  border: 0px;
+}
+
+.list-item-close {
+  padding: 7px 5px;
+  cursor: pointer;
+}
+
 .popover-body {
   height: 300px;
   overflow: auto;
@@ -904,7 +932,7 @@ a:focus {
   line-height: 2rem;
   padding: 0px;
 }
-.popover-close
-{
+
+.popover-close {
   margin-left: 240px;
 }

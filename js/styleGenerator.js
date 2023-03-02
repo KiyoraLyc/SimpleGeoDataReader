@@ -129,7 +129,7 @@ const styleFunction = function (feature, colorstr) {
 const GpxstyleFunction = function (feature) {
     const geometry = feature.getGeometry();
     console.log(feature.getGeometry().getType())
-    const style = styles[feature.getGeometry().getType()];
+    const style = styles[feature.getGeometry().getType()]();
     console.log(style);
     const gpxStyles = [
         style
